@@ -20,7 +20,8 @@ Clone the repository to your local machine.
 ### 2. Open the Project in VS Code
 - Open **VS Code**.
 - Go to **File > Open Folder...** and select the project folder (`Playwright-TS-Demo-nopCommerce`).
-- When VS Code asks *"Do you trust the authors of the files in this folder?"*, click **"Yes, I trust the authors"**.
+- When you open the project, if you see **"Restricted Mode"** at the top, click on **Manage**.
+- In the Workspace Trust window that appears, click the **Trust** button to enable all features and extensions.
 
 ### 3. Install Dependencies
 Open the integrated terminal in VS Code and run the following command to install required packages:
