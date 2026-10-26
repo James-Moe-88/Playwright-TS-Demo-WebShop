@@ -1,0 +1,23 @@
+{
+  "name": "playwright-ts-demo-webshop",
+  "version": "1.0.0",
+  "description": "Playwright automation testing for the 'Demo Web Shop' website using TypeScript",
+  "main": "index.js",
+  "scripts": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/James-Moe-88/Playwright-TS-Demo-WebShop.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/James-Moe-88/Playwright-TS-Demo-WebShop/issues"
+  },
+  "homepage": "https://github.com/James-Moe-88/Playwright-TS-Demo-WebShop#readme",
+  "devDependencies": {
+    "@playwright/test": "^1.64.1",
+    "@types/node": "^26.6.5"
+  }
+}
