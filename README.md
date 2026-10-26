@@ -89,6 +89,17 @@ Our automated test suite is designed to cover 6 key end-to-end scenarios using P
 
 ---
 
-### 💡 Upcoming Scenarios (5 to 6)
-* **Scenario 5:** Search Product & Add to Shopping Cart
+### Scenario 5: Purchase Desktop and Notebook
+* **File:** `tests/Shopping.spec.ts`
+* **Test Name:** `Purchase Desktop and Notebook`
+* **Flow:** Adds custom desktop and notebook products to the cart and completes the end-to-end checkout process.
+* **Steps:** 
+  * Automatically logs in using valid user credentials (`VALID_USER`) via the `beforeEach` hook.
+  * Adds a customized desktop and a notebook to the shopping cart using the page object methods.
+  * Navigates to the shopping cart and proceeds through the checkout steps (terms agreement, billing address, shipping method, and payment method).
+* **Expected Result:** 
+  * Verifies that the order summary totals (fees, shipping, sub-total, tax, and total) match correctly before confirmation.
+  * Confirms the order and verifies final order details including billing address, email, phone, and purchased item list.
+
+### 💡 Upcoming Scenarios (6)
 * **Scenario 6:** End-to-End Product Checkout Process
