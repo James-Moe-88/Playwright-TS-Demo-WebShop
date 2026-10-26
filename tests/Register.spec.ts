@@ -1,6 +1,7 @@
 import { test, expect } from '@playwright/test';
 import { HomePage } from '../Pages/HomePage';
 import { RegisterPage } from '../Pages/RegisterPage';
+import { VALID_USER } from '../Data/Data';
 
 test("Register Existing User", async ({ page }) => {
   const homePage = new HomePage(page);
@@ -11,7 +12,7 @@ test("Register Existing User", async ({ page }) => {
   await homePage.clickRegister();
 
   // Fill the register form with existing user information
-  await registerPage.registerUser('Male', 'James', 'Moe', 'james.moe@yopmail.com', 'gsm123456');
+  await registerPage.registerUser(VALID_USER.gender, VALID_USER.firstName, VALID_USER.lastName, VALID_USER.email, VALID_USER.password);
 
   // Check the error messgae is visible and show as 'The specified email already exists' or not
   await expect(registerPage.errorMessage).toBeVisible();
@@ -30,7 +31,7 @@ test("Register New User", async ({ page }) => {
   const uniqueEmail = `james.moe_${Date.now()}@yopmail.com`;
 
   // Fill the user form with unique email
-  await registerPage.registerUser('Male', 'James', 'Moe', uniqueEmail, 'gsm123456');
+  await registerPage.registerUser(VALID_USER.gender, VALID_USER.firstName, VALID_USER.lastName, uniqueEmail, VALID_USER.password);
 
   // Check the registration complete message is visible and show as 'Your registration completed' or not
   await expect(registerPage.resultMessage).toBeVisible();
