@@ -27,7 +27,7 @@ export class CheckoutPage {
 
     if (cartitems.length > 0) {
       for (const item of cartitems) {
-        await item.locator('td.remove-from-cart').click();
+        await item.locator('td.remove-from-cart input[type="checkbox"]').click();
       }
       await this.page.getByRole('button', { name: 'Update shopping cart' }).click();
     }
@@ -57,20 +57,25 @@ export class CheckoutPage {
     await this.checkoutButton.click();
 
     // Billing & Shipping Continue steps
-    await this.continueButtons.first().click();
-
-    await this.page.waitForTimeout(3000); // Just 3 seconds wait for shipping method, that is a little bit longer depend on situation
     await this.continueButtons.click();
+    await this.page.waitForTimeout(1000); // Just 1 second wait
+
+    await this.continueButtons.click();
+    await this.page.waitForTimeout(1000); // Just 1 second wait
 
     // Shipping method (Next Day Air)
     await this.page.getByRole('radio', { name: 'Next Day Air (0.00)' }).check();
     await this.continueButtons.click();
+    await this.page.waitForTimeout(1000); // Just 1 second wait
 
     // Payment method (COD)
     await this.page.getByRole('radio', { name: 'Cash On Delivery (COD) (7.00)' }).check();
     await this.continueButtons.click();
+    await this.page.waitForTimeout(1000); // Just 1 second wait
+
     await this.page.getByText('You will pay by COD').click();
     await this.continueButtons.click();
+    await this.page.waitForTimeout(1000); // Just 1 second wait
   }
 
   async confirmOrder() {

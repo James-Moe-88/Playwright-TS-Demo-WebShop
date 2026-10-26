@@ -56,7 +56,9 @@ npx playwright show-report
   * **Retries (`retries: 1`):** Automatically retries a failed test once to handle potential flaky tests.
   * **Trace (`trace: 'on-first-retry'`):** Captures a trace file during the first retry for easier failure debugging.
   * **Screenshot (`screenshot: 'only-on-failure'`):** Automatically takes a screenshot only when a test fails.
-
+  * **Workers (`workers: 1`):** 
+    > **⚠️ IMPORTANT:** Tests must run sequentially with a single worker (`workers: 1`) in both Local and CI/CD environments. Since multiple tests share the same user account (`VALID_USER`), parallel execution will cause state conflicts (e.g., cart/wishlist management overlapping between tests).
+    
 * **Customizing Test Data:**
   * If you already have an existing account or want to use specific user credentials, you can easily update them by editing the `VALID_USER` object inside the **`Data/Data.ts`** file.
 

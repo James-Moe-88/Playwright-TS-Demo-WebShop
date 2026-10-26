@@ -21,7 +21,7 @@ export class WishlistPage {
 
         if (cartitems.length > 0) {
             for (const item of cartitems) {
-                await item.locator('td.remove-from-cart').click();
+                await item.locator('td.remove-from-cart input[type="checkbox"]').click();
             }
             await this.page.getByRole('button', { name: 'Update wishlist' }).click();
         }
