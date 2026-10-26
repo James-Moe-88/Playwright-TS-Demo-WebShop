@@ -58,13 +58,13 @@ npx playwright show-report
   * **Screenshot (`screenshot: 'only-on-failure'`):** Automatically takes a screenshot only when a test fails.
   * **Workers (`workers: 1`):** 
     > **⚠️ IMPORTANT:** Tests must run sequentially with a single worker (`workers: 1`) in both Local and CI/CD environments. Since multiple tests share the same user account (`VALID_USER`), parallel execution will cause state conflicts (e.g., cart/wishlist management overlapping between tests).
-    
+
 * **Customizing Test Data:**
   * If you already have an existing account or want to use specific user credentials, you can easily update them by editing the `VALID_USER` object inside the **`Data/Data.ts`** file.
 
 ## 📝 Test Scenarios & Implementation
 
-Our automated test suite is designed to cover 6 key end-to-end scenarios using Playwright, TypeScript, and the Page Object Model (POM) architecture.
+This project consists of six automated test scenarios designed to cover common user interactions, including registration, login, product navigation, and shopping cart operations using Playwright, TypeScript, and the Page Object Model (POM).
 
 ---
 
