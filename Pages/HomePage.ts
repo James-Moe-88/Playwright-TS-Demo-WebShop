@@ -7,6 +7,7 @@ export class HomePage {
     readonly logoutLink: Locator;
     readonly accountLink: Locator;
     readonly shoppingLink: Locator;
+    readonly wishlistLink: Locator;
 
     constructor(page: Page) {
         this.page = page;
@@ -15,6 +16,7 @@ export class HomePage {
         this.loginLink = page.locator('div.header-links').locator('a.ico-login');
         this.logoutLink = page.locator('div.header-links').locator('a.ico-logout');
         this.shoppingLink = page.locator('div.header-links').locator('a.ico-cart');
+        this.wishlistLink = page.locator('div.header-links').locator('a.ico-wishlist');
     }
 
     async goto() {
@@ -35,5 +37,9 @@ export class HomePage {
 
     async clickShopping() {
         await this.shoppingLink.click();
+    }
+
+    async clickWishlist() {
+        await this.wishlistLink.click();
     }
 }

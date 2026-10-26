@@ -17,6 +17,22 @@ export class CheckoutPage {
     this.orderDetailsLink = page.getByRole('link', { name: 'Click here for order details.' });
   }
 
+  // Clear the items from Cart
+  async clearCart() {
+    // Go to cart
+    await this.page.locator('div.header-links').locator('a.ico-cart').click();
+
+    // Check the items and clear
+    const cartitems = await this.page.locator('table.cart').locator('tr.cart-item-row').all();
+
+    if (cartitems.length > 0) {
+      for (const item of cartitems) {
+        await item.locator('td.remove-from-cart').click();
+      }
+      await this.page.getByRole('button', { name: 'Update shopping cart' }).click();
+    }
+  }
+
   // Desktop product options selection & add to cart
   async addCustomDesktopToCart() {
     await this.page.getByRole('link', { name: 'Computers' }).first().hover();
@@ -28,7 +44,7 @@ export class CheckoutPage {
     await this.page.locator('#add-to-cart-button-74').click();
   }
 
-  // Notebook product add to cart
+  // Choose Notebook and add to cart
   async addNotebookToCart() {
     await this.page.getByRole('link', { name: 'Computers' }).first().hover();
     await this.page.getByRole('link', { name: 'Notebooks' }).first().click();
@@ -39,18 +55,17 @@ export class CheckoutPage {
   async proceedCheckout() {
     await this.termsCheckbox.check();
     await this.checkoutButton.click();
-    
+
     // Billing & Shipping Continue steps
     await this.continueButtons.first().click();
 
-    // Sometimes this step is a little longer depend on situation
-    await this.page.waitForTimeout(3000);
+    await this.page.waitForTimeout(3000); // Just 3 seconds wait for shipping method, that is a little bit longer depend on situation
     await this.continueButtons.click();
-    
+
     // Shipping method (Next Day Air)
     await this.page.getByRole('radio', { name: 'Next Day Air (0.00)' }).check();
     await this.continueButtons.click();
-    
+
     // Payment method (COD)
     await this.page.getByRole('radio', { name: 'Cash On Delivery (COD) (7.00)' }).check();
     await this.continueButtons.click();

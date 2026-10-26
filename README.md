@@ -34,6 +34,16 @@ Run the following command to install the required browsers:
 npx playwright install
 ```
 
+### ⚙️ Test Configuration & Customization
+
+* **Playwright Settings (`playwright.config.ts`):**
+  * **Retries (`retries: 1`):** Automatically retries a failed test once to handle potential flaky tests.
+  * **Trace (`trace: 'on-first-retry'`):** Captures a trace file during the first retry for easier failure debugging.
+  * **Screenshot (`screenshot: 'only-on-failure'`):** Automatically takes a screenshot only when a test fails.
+
+* **Customizing Test Data:**
+  * If you already have an existing account or want to use specific user credentials, you can easily update them by editing the `VALID_USER` object inside the **`Data/Data.ts`** file.
+
 ## 📝 Test Scenarios & Implementation
 
 Our automated test suite is designed to cover 6 key end-to-end scenarios using Playwright, TypeScript, and the Page Object Model (POM) architecture.
@@ -89,17 +99,29 @@ Our automated test suite is designed to cover 6 key end-to-end scenarios using P
 
 ---
 
-### Scenario 5: Purchase Desktop and Notebook
+### Scenario 5: Search Products and Add to Wishlist
+* **File:** `tests/Wishlist.spec.ts`
+* **Test Name:** `Search Products and Add to Wishlist`
+* **Flow:** Searches for specific products, adds them to the wishlist, and verifies their details.
+* **Steps:** 
+  * Automatically logs in using valid credentials via the `beforeEach` hook.
+  * Clears any existing items from the wishlist to ensure a clean test state.
+  * Searches for products and adds them to the wishlist.
+  * Navigates to the wishlist page to retrieve the items' text data.
+* **Expected Result:** 
+  * Verifies that the wishlist contains the correct product names and prices (`"Digital SLR Camera - Black"`, `"670.00"`, `"Black & White Diamond Heart"`, and `"130.00"`).
+
+  ---
+
+### Scenario 6: Purchase Desktop and Notebook
 * **File:** `tests/Shopping.spec.ts`
 * **Test Name:** `Purchase Desktop and Notebook`
 * **Flow:** Adds custom desktop and notebook products to the cart and completes the end-to-end checkout process.
 * **Steps:** 
-  * Automatically logs in using valid user credentials (`VALID_USER`) via the `beforeEach` hook.
+  * Automatically logs in using valid credentials via the `beforeEach` hook.
+  * Clears any existing items from the Shopping Cart to ensure a clean test state.
   * Adds a customized desktop and a notebook to the shopping cart using the page object methods.
   * Navigates to the shopping cart and proceeds through the checkout steps (terms agreement, billing address, shipping method, and payment method).
 * **Expected Result:** 
   * Verifies that the order summary totals (fees, shipping, sub-total, tax, and total) match correctly before confirmation.
   * Confirms the order and verifies final order details including billing address, email, phone, and purchased item list.
-
-### 💡 Upcoming Scenarios (6)
-* **Scenario 6:** End-to-End Product Checkout Process

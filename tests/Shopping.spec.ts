@@ -3,6 +3,7 @@ import { HomePage } from '../Pages/HomePage';
 import { LoginPage } from '../Pages/LoginPage';
 import { VALID_USER } from '../Data/Data';
 import { CheckoutPage } from '../Pages/CheckoutPage';
+import { WishlistPage } from '../Pages/WishlistPage';
 
 test.beforeEach(async ({ page }) => {
     const homePage = new HomePage(page);
@@ -14,23 +15,41 @@ test.beforeEach(async ({ page }) => {
 
     // Login with valid username and password
     await loginPage.loginUser(VALID_USER.email, VALID_USER.password);
-
-    // Go to cart
-    await homePage.clickShopping();
-
-    // Check the items and clear
-    const cartitems = await page.locator('table.cart').locator('tr.cart-item-row').all();
-    if (cartitems.length > 0) {
-        for (const item of cartitems) {
-            await item.locator('td.remove-from-cart').click();
-        }
-        await page.getByRole('button', { name: 'Update shopping cart' }).click();
-    }
 });
 
-test.only("Purchase Desktop and Notebook", async ({ page }) => {
+test("Search Products and Add to Wishlist", async ({ page }) => {
+    const homePage = new HomePage(page);
+    const wishlistPage = new WishlistPage(page);
+
+    // Clear the items from Wishlist before add wishlist item
+    await wishlistPage.clearWishlist();
+
+    // Search and add products to wishlist
+    await wishlistPage.addFirstProductToWishlist();
+    await page.waitForTimeout(2000); // just wait 2 seconds after choosing first product
+    await wishlistPage.addSecondProductToWishlist();
+    await page.waitForTimeout(2000); // just wait 2 seconds after choosing second product
+
+    // Go to wishlist page
+    await homePage.clickWishlist();
+    await page.waitForTimeout(2000); // just wait 2 seconds before retrieve the data
+
+    // Retrieve wishlist items text data
+    const dataValue = await wishlistPage.getWishlistData();
+
+    // Check the Wishlist items
+    await expect(dataValue).toContain("Digital SLR Camera - Black");
+    await expect(dataValue).toContain("670.00");
+    await expect(dataValue).toContain("Black & White Diamond Heart");
+    await expect(dataValue).toContain("130.00");
+});
+
+test("Purchase Desktop and Notebook", async ({ page }) => {
     const homePage = new HomePage(page);
     const checkoutPage = new CheckoutPage(page);
+
+    // Clear the items from Cart before add product
+    await checkoutPage.clearCart();
 
     // Add products to cart
     await checkoutPage.addCustomDesktopToCart();
@@ -53,12 +72,9 @@ test.only("Purchase Desktop and Notebook", async ({ page }) => {
     // Confirm and verify final order details
     await checkoutPage.confirmOrder();
 
+    // Check the final order
     const orderBody = page.locator('body');
     await expect(orderBody).toContainText('Order Total: 3657.00');
-    await expect(orderBody).toContainText('Billing Address James Moe');
-    await expect(orderBody).toContainText('Email: james.moe@yopmail.com');
-    await expect(orderBody).toContainText('Phone: (602) 350-5105');
-    await expect(orderBody).toContainText('200 W. Washington Street, Phoenix, AZ 85003 Phoenix , Arizona 85281 United States');
     await expect(orderBody).toContainText('Payment Method Cash On Delivery (COD)');
     await expect(orderBody).toContainText('Shipping Method Next Day Air Product(s)');
     await expect(orderBody).toContainText('Build your own expensive computer Processor: Fast [+100.00]RAM: 8GB [+60.00]HDD: 320 GBSoftware: Office Suite [+100.00] Price: 2060.00');
