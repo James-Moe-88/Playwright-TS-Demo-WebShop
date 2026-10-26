@@ -34,6 +34,22 @@ Run the following command to install the required browsers:
 npx playwright install
 ```
 
+### 5. Run Tests
+You can execute the test suite using the following commands:
+
+* **Run all test scenarios:**
+```bash
+npx playwright test
+```
+* **Run a specific test file (e.g., Register test):**
+```bash
+npx playwright test tests/Register.spec.ts
+```
+* **View the HTML test report:**
+```bash
+npx playwright show-report
+```
+
 ### ⚙️ Test Configuration & Customization
 
 * **Playwright Settings (`playwright.config.ts`):**
