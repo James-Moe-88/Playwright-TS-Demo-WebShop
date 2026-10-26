@@ -42,42 +42,50 @@ Our automated test suite is designed to cover 6 key end-to-end scenarios using P
 
 ### Scenario 1: Register New User
 * **File:** `tests/Register.spec.ts`
-* **Flow:** Navigates from the Home Page to the Register Page.
-* **Test Data:** Utilizes centralized test data (`VALID_USER`) for standard user attributes (gender, first name, last name, and password) combined with a dynamically generated unique email address using `Date.now()` to ensure test independence.
-* **Form Submission:** Fills out the registration form using the combined dataset (`registerPage.registerUser()`).
-* **Assertions:** 
-  * Verifies the success message (`Your registration completed`) is visible.
-  * Continues to the account page and validates that the unique email is displayed in the header alongside the "Log out" link.
-  * Performs a logout action and verifies that the "Register" and "Log in" links reappear on the home page.
+* **Test Name:** `Register New User`
+* **Flow:** Creates a new user successfully with valid details.
+* **Steps:** 
+  * Opens the home page and clicks the Register link.
+  * Fills out the form using shared data (`VALID_USER`) and a unique email (`Date.now()`).
+  * Submits the form.
+* **Expected Result:** 
+  * Shows the success message: `"Your registration completed"`.
+  * Verifies the user email appears in the header and can log out successfully.
 
 ---
 
 ### Scenario 2: Register Existing User
 * **File:** `tests/Register.spec.ts`
-* **Flow:** Navigates to the Register page and attempts to register using already existing user information from the centralized dataset (`VALID_USER`).
-* **Form Submission:** Submits the form with pre-existing credentials via `registerPage.registerUser()`.
-* **Assertions:** 
-  * Verifies that the validation summary error container (`div.validation-summary-errors`) is visible.
-  * Asserts the exact error message: `"The specified email already exists"`.
+* **Test Name:** `Register Existing User`
+* **Flow:** Prevents registration using an email that already exists.
+* **Steps:** 
+  * Opens the register page.
+  * Tries to register again using the existing email from `VALID_USER`.
+* **Expected Result:** 
+  * Shows the error message: `"The specified email already exists"`.
 
 ---
 
 ### Scenario 3: Login with Valid Credentials
 * **File:** `tests/Login.spec.ts`
-* **Flow:** Navigates from the Home Page to the Login Page using centralized test data (`VALID_USER`).
-* **Form Submission:** Enters valid user credentials via `loginPage.loginUser()`.
-* **Assertions:** 
-  * Verifies that the account link displaying the user's email (`VALID_USER.email`) is visible in the header.
-  * Verifies that the "Log out" link is visible and correctly structured.
+* **Test Name:** `Login with Valid Credentials`
+* **Flow:** Allows a registered user to log in successfully.
+* **Steps:** 
+  * Opens the home page and clicks Login.
+  * Enters valid email and password from `VALID_USER`.
+* **Expected Result:** 
+  * The user's email is visible in the header.
+  * The "Log out" link appears correctly.
 
 ---
 
 ### Scenario 4: Login with Invalid Credentials
 * **File:** `tests/Login.spec.ts`
-* **Flow:** Tests negative validation scenarios for user authentication.
-* **Test Cases Covered:**
-  * **Wrong Password:** Attempts login using a valid email (`VALID_USER.email`) and an incorrect password (`'wrong'`), asserting the validation summary error messages: `Login was unsuccessful. Please correct the errors and try again.` and `The credentials provided are incorrect`.
-  * **Non-registered Email:** Attempts login using an unregistered email (`invalid.email@yopmail.com`) and password, asserting the validation summary error messages: `Login was unsuccessful. Please correct the errors and try again.` and `No customer account found`.
+* **Test Name:** `Login with Invalid Credentials`
+* **Flow:** Shows errors when logging in with incorrect details.
+* **Test Cases:**
+  * **Wrong Password:** Uses a valid email with a wrong password (`'wrong'`). Expects the error message: `"Login was unsuccessful. Please correct the errors and try again."` and `"The credentials provided are incorrect"`.
+  * **Unregistered Email:** Uses an email that doesn't exist. Expects the error message: `"Login was unsuccessful. Please correct the errors and try again."` and `"No customer account found"`.
 
 ---
 
