@@ -74,6 +74,12 @@ test("Purchase Desktop and Notebook", async ({ page }) => {
 
     // Check the final order
     const orderBody = page.locator('body');
+    await expect(orderBody).toContainText(VALID_USER.country);
+    await expect(orderBody).toContainText(VALID_USER.state);
+    await expect(orderBody).toContainText(VALID_USER.city);
+    await expect(orderBody).toContainText(VALID_USER.address);
+    await expect(orderBody).toContainText(VALID_USER.zipCode);
+    await expect(orderBody).toContainText(VALID_USER.phoneNo);
     await expect(orderBody).toContainText('Order Total: 3657.00');
     await expect(orderBody).toContainText('Payment Method Cash On Delivery (COD)');
     await expect(orderBody).toContainText('Shipping Method Next Day Air Product(s)');

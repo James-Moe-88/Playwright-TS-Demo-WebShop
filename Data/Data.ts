@@ -3,14 +3,11 @@ export const VALID_USER = {
   lastName: 'Moe',
   email: 'james.moe@yopmail.com',
   password: 'gsm123456',
-  gender: 'Male' as const
+  gender: 'Male' as const,
+  country: 'United States',
+  state: 'Arizona',
+  city: 'Phoenix',
+  address: '200 W. Washington Street, Phoenix, AZ 85003',
+  zipCode: '85281',
+  phoneNo: '(602) 350-5105'
 };
-
-// Shipping Addresses
-
-// Country: United States
-// State: Arizona
-// City: Phoenix
-// Address:  200 W. Washington Street, Phoenix, AZ 85003 
-// Zip Code: 85281
-// Phone No: (602) 350-5105
