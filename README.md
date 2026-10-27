@@ -110,10 +110,13 @@ This project consists of six automated test scenarios designed to cover common u
 ### Scenario 4: Login with Invalid Credentials
 * **File:** `tests/Login.spec.ts`
 * **Test Name:** `Login with Invalid Credentials`
-* **Flow:** Shows errors when logging in with incorrect details.
-* **Test Cases:**
-  * **Wrong Password:** Uses a valid email with a wrong password (`'wrong'`). Expects the error message: `"Login was unsuccessful. Please correct the errors and try again."` and `"The credentials provided are incorrect"`.
-  * **Unregistered Email:** Uses an email that doesn't exist. Expects the error message: `"Login was unsuccessful. Please correct the errors and try again."` and `"No customer account found"`.
+* **Flow:** Shows error messages when logging in with incorrect credentials.
+* **Steps:**
+  * **Case A (Wrong Password):** Enters a valid email with a wrong password (`wrong`) and clicks Login.
+  * **Case B (Unregistered Email):** Enters a non-existent email with a password and clicks Login.
+* **Expected Result:**
+  * For wrong password, expects the error message: `Login was unsuccessful. Please correct the errors and try again.` and `The credentials provided are incorrect`.
+  * For unregistered email, expects the error message: `Login was unsuccessful. Please correct the errors and try again.` and `No customer account found`.
 
 ---
 
