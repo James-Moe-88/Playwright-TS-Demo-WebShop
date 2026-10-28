@@ -3,13 +3,17 @@ import { HomePage } from '../Pages/HomePage';
 import { LoginPage } from '../Pages/LoginPage';
 import { VALID_USER } from '../Data/Data';
 
-test("Login with Valid Credentials", async ({ page }) => {
+test.beforeEach(async ({ page }) => {
     const homePage = new HomePage(page);
-    const loginPage = new LoginPage(page);
-    
+
     // Goto 'Home' page and click 'Log in' link button
     await homePage.goto();
     await homePage.clickLogin();
+});
+
+test("Login with Valid Credentials", async ({ page }) => {
+    const homePage = new HomePage(page);
+    const loginPage = new LoginPage(page);
 
     // Login with valid username and password
     await loginPage.loginUser(VALID_USER.email, VALID_USER.password);
@@ -24,10 +28,6 @@ test("Login with Valid Credentials", async ({ page }) => {
 test("Login with Invalid Credentials", async ({ page }) => {
     const homePage = new HomePage(page);
     const loginPage = new LoginPage(page);
-
-    // Goto 'Home' page and click 'Log in' link button
-    await homePage.goto();
-    await homePage.clickLogin();
 
     // Login with wrong password
     await loginPage.loginUser(VALID_USER.email, 'wrong');

@@ -59,7 +59,6 @@ export class CheckoutPage {
     // Billing & Shipping Continue steps
     await this.continueButtons.click();
     await this.page.waitForTimeout(1000); // Just 1 second wait
-
     await this.continueButtons.click();
     await this.page.waitForTimeout(1000); // Just 1 second wait
 
@@ -78,6 +77,7 @@ export class CheckoutPage {
     await this.page.waitForTimeout(1000); // Just 1 second wait
   }
 
+  // Order confirm
   async confirmOrder() {
     await this.confirmButton.click();
     await this.orderDetailsLink.click();

@@ -3,13 +3,16 @@ import { HomePage } from '../Pages/HomePage';
 import { RegisterPage } from '../Pages/RegisterPage';
 import { VALID_USER } from '../Data/Data';
 
-test("Register Existing User", async ({ page }) => {
+test.beforeEach(async ({ page }) => {
   const homePage = new HomePage(page);
-  const registerPage = new RegisterPage(page);
 
   // Goto 'Home' page and click 'Register' link button
   await homePage.goto();
   await homePage.clickRegister();
+});
+
+test("Register Existing User", async ({ page }) => {
+  const registerPage = new RegisterPage(page);
 
   // Fill the register form with existing user information
   await registerPage.registerUser(VALID_USER.gender, VALID_USER.firstName, VALID_USER.lastName, VALID_USER.email, VALID_USER.password);
@@ -22,10 +25,6 @@ test("Register Existing User", async ({ page }) => {
 test("Register New User", async ({ page }) => {
   const homePage = new HomePage(page);
   const registerPage = new RegisterPage(page);
-
-  // Goto 'Home' page and click 'Register' link button
-  await homePage.goto();
-  await homePage.clickRegister();
 
   // Create a unique email address with current datetime
   const uniqueEmail = `james.moe_${Date.now()}@yopmail.com`;

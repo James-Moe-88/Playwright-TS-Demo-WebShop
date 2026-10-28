@@ -31,6 +31,7 @@ export class WishlistPage {
     async addFirstProductToWishlist() {
         await this.searchInput.fill('Digital SLR Camera');
         await this.searchButton.click();
+
         await this.page.getByRole('link', { name: 'Digital SLR Camera 12.2 Mpixel', exact: true }).click();
         await this.page.locator('#add-to-wishlist-button-18').click();
     }
@@ -39,6 +40,7 @@ export class WishlistPage {
     async addSecondProductToWishlist() {
         await this.searchInput.fill('diamond');
         await this.searchButton.click();
+        
         await this.page.getByRole('link', { name: 'Black & White Diamond Heart', exact: true }).click();
         await this.page.getByRole('button', { name: 'Add to wishlist' }).click();
     }
